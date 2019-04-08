@@ -1,14 +1,19 @@
-import React, { Component } from 'react';
+import React, {
+  Component
+} from 'react';
 import BurgerList from './BurgerList'
 import BurgerFilter from './BurgerFilter'
 
+
 export default class BurgerContainer extends Component {
 
-  render(){
+  render() {
+
     return (
       <div className="BurgerContainer">
-        <BurgerFilter />
-        <BurgerList />
+        <BurgerFilter  handleFilter={this.props.handleFilter}/>
+
+        <BurgerList handleShow={this.props.handleShow} burgers={this.props.burgers} />
       </div>
     )
   }
