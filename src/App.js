@@ -31,18 +31,7 @@ class App extends Component {
 
 
 
-  changeCategory = (burger) => {
-    const config = {
-      method: 'PATCH',
-      body: JSON.stringify(burger),
-      headers: {
-        "Content-Type": "application/json"
-      }
-    }
 
-
-    fetch(`http://localhost:3001/burgers/${burger.id}`, config)
-  }
 
 
 
@@ -55,9 +44,8 @@ class App extends Component {
 
   handleFilter = (e) => {
 
-    console.log("it changed to Relatable")
     if (e.target.value === "Relatable") {
-      console.log("it changed to Relatable")
+
       this.burgerFetch()
         .then(idx => {
           let state = this.state.burgers.filter(burger => burger.category === "Relatable")
@@ -85,15 +73,28 @@ class App extends Component {
     }
   }
 
+  changeCategory = (burger) => {
+    const config = {
+      method: 'PATCH',
+      body: JSON.stringify(burger),
+      headers: {
+        "Content-Type": "application/json"
+      }
+    }
+
+
+
+    fetch(`http://localhost:3001/burgers/${burger.id}`, config)
+  }
+
   handleCategoryChange = (e) => {
+
     const stateCopy = [...this.state.burgers]
     let foundBurger = stateCopy.find(burger => burger.id === +e.target.id)
 
-    if (e.target.value === "Bougie" && foundBurger) {
-      foundBurger.category = "Bougie"
-    } else if (e.target.value === "Relatable" && foundBurger) {
-      foundBurger.category = "Relatable"
-    }
+    foundBurger.category = e.target.value
+
+
 
     this.setState({
       burgers: stateCopy
@@ -104,7 +105,7 @@ class App extends Component {
 
 
   render() {
-    console.log(" hi 0 " + this.state.burgers)
+
 
     return (
       <div id="App">
